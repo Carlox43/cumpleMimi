@@ -1,493 +1,564 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Una Sorpresa para [Nombre de tu Amiga]!</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¡Cumpleaños Vanesa!</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    
     <style>
-        /* Estilos Generales y Colores */
-        body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(to bottom, #ffe4e1, #ffc0cb); /* Degradado de rosa claro a rosa pastel */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* Alinea el contenido al inicio */
-            align-items: center;
-            min-height: 100vh;
-            color: #5a3e5a; /* Morado oscuro para el texto */
-            overflow-x: hidden;
-            position: relative;
-            padding-bottom: 50px; /* Espacio para el pie */
-        }
+      /* Estilos Generales y Colores */
+      body {
+        font-family: "Quicksand", sans-serif;
+        background: linear-gradient(
+          to bottom,
+          #ffe4e1,
+          #ffc0cb
+        ); /* Degradado de rosa claro a rosa pastel */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Alinea el contenido al inicio */
+        align-items: center;
+        min-height: 100vh;
+        color: #5a3e5a; /* Morado oscuro para el texto */
+        overflow-x: hidden;
+        position: relative;
+        padding-bottom: 50px; /* Espacio para el pie */
+      }
 
-        /* Pantalla de Inicio del Regalo */
-        #gift-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, #ffc0cb, #ffb6c1); /* Degradado rosa para la pantalla de regalo */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100; /* Asegura que esté por encima de todo */
-            cursor: pointer;
-            transition: opacity 1s ease-out, visibility 1s ease-out;
-        }
+      /* Pantalla de Inicio del Regalo */
+      #gift-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          #ffc0cb,
+          #ffb6c1
+        ); /* Degradado rosa para la pantalla de regalo */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 100; /* Asegura que esté por encima de todo */
+        cursor: pointer;
+        transition: opacity 1s ease-out, visibility 1s ease-out;
+      }
 
-        #gift-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
+      #gift-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
 
-        .gift-box {
-            width: 200px;
-            height: 200px;
-            background-color: #ff69b4; /* Rosa fuerte */
-            border-radius: 15px;
-            position: relative;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease-in-out;
-            animation: bounce 2s infinite; /* Animación de rebote */
-        }
+      .gift-box {
+        width: 200px;
+        height: 200px;
+        background-color: #ff69b4; /* Rosa fuerte */
+        border-radius: 15px;
+        position: relative;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out;
+        animation: bounce 2s infinite; /* Animación de rebote */
+      }
 
-        .gift-box:hover {
-            transform: scale(1.05);
-            animation-play-state: paused; /* Pausa el rebote al pasar el ratón */
-        }
+      .gift-box:hover {
+        transform: scale(1.05);
+        animation-play-state: paused; /* Pausa el rebote al pasar el ratón */
+      }
 
-        .gift-box::before { /* Lazo vertical */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 100%;
-            background-color: #ffd700; /* Dorado */
-            border-radius: 5px;
-        }
+      .gift-box::before {
+        /* Lazo vertical */
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 100%;
+        background-color: #ffd700; /* Dorado */
+        border-radius: 5px;
+      }
 
-        .gift-box::after { /* Lazo horizontal */
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            width: 100%;
-            height: 40px;
-            background-color: #ffd700; /* Dorado */
-            border-radius: 5px;
-        }
+      .gift-box::after {
+        /* Lazo horizontal */
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 40px;
+        background-color: #ffd700; /* Dorado */
+        border-radius: 5px;
+      }
 
-        .gift-lid {
-            width: 220px;
-            height: 60px;
-            background-color: #ff1493; /* Rosa oscuro */
-            border-radius: 10px;
-            position: absolute;
-            top: -30px;
-            left: -10px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            transition: transform 0.5s ease-in-out;
-            transform-origin: bottom center;
-            z-index: 1; /* Para que esté sobre la caja */
-        }
+      .gift-lid {
+        width: 220px;
+        height: 60px;
+        background-color: #ff1493; /* Rosa oscuro */
+        border-radius: 10px;
+        position: absolute;
+        top: -30px;
+        left: -10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.5s ease-in-out;
+        transform-origin: bottom center;
+        z-index: 1; /* Para que esté sobre la caja */
+      }
 
-        .gift-lid::before { /* Lazo del lazo de la tapa */
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
-            background-color: #ffd700; /* Dorado */
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
+      .gift-lid::before {
+        /* Lazo del lazo de la tapa */
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        background-color: #ffd700; /* Dorado */
+        border-radius: 50%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
 
-        .gift-text {
-            font-family: 'Pacifico', cursive;
-            color: #fff;
-            font-size: 2em;
-            margin-top: 30px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        }
+      .gift-text {
+        font-family: "Pacifico", cursive;
+        color: #fff;
+        font-size: 2em;
+        margin-top: 30px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      }
 
-        /* Animación de apertura del regalo */
-        .gift-box.open .gift-lid {
-            transform: translateY(-150px) rotate(-20deg); /* Mueve y rota la tapa */
-        }
+      /* Animación de apertura del regalo */
+      .gift-box.open .gift-lid {
+        transform: translateY(-150px) rotate(-20deg); /* Mueve y rota la tapa */
+      }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
         }
-
-        /* Contenedor Principal de la Carta (inicialmente oculto) */
-        #card-content {
-            display: none; /* Oculto por defecto */
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in;
+        50% {
+          transform: translateY(-20px);
         }
+      }
 
-        #card-content.visible {
-            display: flex;
-            opacity: 1;
+      /* Contenedor Principal de la Carta (inicialmente oculto) */
+      #card-content {
+        display: none; /* Oculto por defecto */
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in;
+      }
+
+      #card-content.visible {
+        display: flex;
+        opacity: 1;
+      }
+
+      .card-container {
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Blanco semitransparente */
+        border-radius: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        padding: 40px 30px;
+        margin: 40px 20px;
+        text-align: center;
+        max-width: 900px;
+        width: 90%;
+        position: relative;
+        z-index: 10;
+        border: 3px solid #ff69b4; /* Borde rosa fuerte */
+      }
+
+      /* Títulos */
+      h1 {
+        font-family: "Pacifico", cursive; /* Fuente decorativa */
+        color: #ff1493; /* Rosa oscuro / Deep Pink */
+        font-size: 3.8em;
+        margin-bottom: 15px;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      h2 {
+        font-family: "Pacifico", cursive;
+        color: #da70d6; /* Orquídea */
+        font-size: 2.2em;
+        margin-top: 30px;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Párrafos de Mensaje */
+      p {
+        font-size: 1.2em;
+        line-height: 1.7;
+        margin-bottom: 15px;
+        color: #6a5acd; /* Azul pizarra */
+      }
+
+      .main-message {
+        font-size: 1.3em;
+        font-weight: 500;
+        color: #4b0082; /* Índigo */
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed #ffb6c1; /* Línea divisoria */
+      }
+
+      .dedicatoria {
+        font-style: italic;
+        color: #8a2be2; /* Azul violeta */
+        margin-top: 35px;
+        font-size: 1.15em;
+      }
+
+      .nombre-amiga {
+        font-weight: bold;
+        color: #c71585; /* Rosa más oscuro / Medium Violet Red */
+      }
+
+      /* Sección de Mensajes de Amigos */
+      .friends-messages {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(280px, 1fr)
+        ); /* Columnas responsivas */
+        gap: 25px;
+        margin-top: 30px;
+        padding: 20px 0;
+        border-top: 1px dashed #ffb6c1;
+      }
+
+      .friend-card {
+        background-color: #fffaf0; /* Blanco floral */
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 2px solid #ffc0cb; /* Borde rosa claro */
+      }
+
+      .friend-card:hover {
+        transform: translateY(-8px); /* Efecto de elevación al pasar el ratón */
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .friend-card h3 {
+        color: #ff69b4; /* Rosa fuerte */
+        font-size: 1.5em;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-family: "Pacifico", cursive;
+      }
+
+      .friend-card p {
+        font-size: 1em;
+        color: #6a5acd;
+        margin-bottom: 0;
+      }
+
+      /* Reproductor de Música */
+      .music-player {
+        margin-top: 30px;
+        padding: 15px 20px;
+        background-color: #f7e1ed; /* Rosa más pálido */
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .music-player p {
+        margin: 0;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #c71585; /* Rosa más oscuro */
+      }
+
+      .music-player audio {
+        width: 250px; /* Ancho del control de audio */
+        height: 40px; /* Altura del control de audio */
+      }
+
+      /* Decoraciones de Festejo (Banners y Flores) */
+      .decoration-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* Altura de la decoración */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" preserveAspectRatio="none"><polygon points="0,0 10,20 20,0" fill="%23ff69b4"/><polygon points="10,0 20,20 30,0" fill="%23dda0dd"/><polygon points="20,0 30,20 40,0" fill="%23ffc0cb"/><polygon points="30,0 40,20 50,0" fill="%23ff69b4"/><polygon points="40,0 50,20 60,0" fill="%23dda0dd"/><polygon points="50,0 60,20 70,0" fill="%23ffc0cb"/><polygon points="60,0 70,20 80,0" fill="%23ff69b4"/><polygon points="70,0 80,20 90,0" fill="%23dda0dd"/><polygon points="80,0 90,20 100,0" fill="%23ffc0cb"/></svg>'); /* Banderines SVG */
+        background-repeat: repeat-x;
+        background-size: 50px 20px; /* Tamaño de cada banderín */
+        z-index: 5;
+        opacity: 0.8;
+      }
+
+      .flower-left,
+      .flower-right {
+        position: absolute;
+        width: 150px; /* Tamaño de la flor */
+        height: 150px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="roseGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(255,192,203);stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(255,105,180);stop-opacity:1" /></linearGradient></defs><circle cx="50" cy="50" r="45" fill="url(#roseGradient)"/><path d="M50,5 A45,45 0 0,1 95,50 A45,45 0 0,1 50,95 A45,45 0 0,1 5,50 A45,45 0 0,1 50,5 Z M50,15 C75,15 85,35 85,50 C85,65 75,85 50,85 C25,85 15,65 15,50 C15,35 25,15 50,15 Z" fill="%23ff69b4"/><path d="M50,25 C65,25 70,35 70,50 C70,65 65,75 50,75 C35,75 30,65 30,50 C30,35 35,25 50,25 Z" fill="%23ff1493"/></svg>'); /* Flor simple SVG */
+        background-size: contain;
+        background-repeat: no-repeat;
+        z-index: 8; /* Detrás del contenedor pero sobre el fondo */
+        pointer-events: none; /* Para que no interfiera con clics */
+      }
+
+      .flower-left {
+        top: 50px;
+        left: 20px;
+        transform: rotate(-15deg);
+      }
+
+      .flower-right {
+        bottom: 50px;
+        right: 20px;
+        transform: rotate(15deg);
+      }
+
+      /* Confeti */
+      .confetti {
+        position: fixed; /* Para que cubra toda la pantalla */
+        width: 10px;
+        height: 10px;
+        background-color: #ffc0cb; /* Rosa pastel */
+        border-radius: 50%;
+        animation: fall linear infinite;
+        opacity: 0;
+        z-index: 1; /* Detrás de todo el contenido */
+      }
+
+      .confetti:nth-child(2n) {
+        background-color: #ff69b4;
+      } /* Rosa fuerte */
+      .confetti:nth-child(3n) {
+        background-color: #dda0dd;
+        border-radius: 0;
+        transform: rotate(45deg);
+      } /* Cuadrado morado */
+      .confetti:nth-child(4n) {
+        background-color: #f08080;
+      } /* Coral claro */
+      .confetti:nth-child(5n) {
+        background-color: #ffd700;
+        border-radius: 0;
+      } /* Dorado */
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg);
+          opacity: 1;
         }
-
-        .card-container {
-            background-color: rgba(255, 255, 255, 0.9); /* Blanco semitransparente */
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            padding: 40px 30px;
-            margin: 40px 20px;
-            text-align: center;
-            max-width: 900px;
-            width: 90%;
-            position: relative;
-            z-index: 10;
-            border: 3px solid #ff69b4; /* Borde rosa fuerte */
+        100% {
+          transform: translateY(105vh) rotate(720deg);
+          opacity: 0.7;
         }
+      }
 
-        /* Títulos */
+      /* Media Queries para Responsividad */
+      @media (max-width: 768px) {
         h1 {
-            font-family: 'Pacifico', cursive; /* Fuente decorativa */
-            color: #ff1493; /* Rosa oscuro / Deep Pink */
-            font-size: 3.8em;
-            margin-bottom: 15px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+          font-size: 2.8em;
         }
-
         h2 {
-            font-family: 'Pacifico', cursive;
-            color: #da70d6; /* Orquídea */
-            font-size: 2.2em;
-            margin-top: 30px;
-            margin-bottom: 25px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+          font-size: 1.8em;
         }
-
-        /* Párrafos de Mensaje */
-        p {
-            font-size: 1.2em;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            color: #6a5acd; /* Azul pizarra */
+        .card-container {
+          padding: 30px 15px;
+          margin: 20px 10px;
         }
-
-        .main-message {
-            font-size: 1.3em;
-            font-weight: 500;
-            color: #4b0082; /* Índigo */
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed #ffb6c1; /* Línea divisoria */
-        }
-
-        .dedicatoria {
-            font-style: italic;
-            color: #8a2be2; /* Azul violeta */
-            margin-top: 35px;
-            font-size: 1.15em;
-        }
-
-        .nombre-amiga {
-            font-weight: bold;
-            color: #c71585; /* Rosa más oscuro / Medium Violet Red */
-        }
-
-        /* Sección de Mensajes de Amigos */
         .friends-messages {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas responsivas */
-            gap: 25px;
-            margin-top: 30px;
-            padding: 20px 0;
-            border-top: 1px dashed #ffb6c1;
+          grid-template-columns: 1fr; /* Una columna en móviles */
         }
-
-        .friend-card {
-            background-color: #fffaf0; /* Blanco floral */
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 2px solid #ffc0cb; /* Borde rosa claro */
-        }
-
-        .friend-card:hover {
-            transform: translateY(-8px); /* Efecto de elevación al pasar el ratón */
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .friend-card h3 {
-            color: #ff69b4; /* Rosa fuerte */
-            font-size: 1.5em;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-family: 'Pacifico', cursive;
-        }
-
-        .friend-card p {
-            font-size: 1em;
-            color: #6a5acd;
-            margin-bottom: 0;
-        }
-
-        /* Reproductor de Música */
-        .music-player {
-            margin-top: 30px;
-            padding: 15px 20px;
-            background-color: #f7e1ed; /* Rosa más pálido */
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .music-player p {
-            margin: 0;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #c71585; /* Rosa más oscuro */
-        }
-
-        .music-player audio {
-            width: 250px; /* Ancho del control de audio */
-            height: 40px; /* Altura del control de audio */
-        }
-
-        /* Decoraciones de Festejo (Banners y Flores) */
-        .decoration-top {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100px; /* Altura de la decoración */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20" preserveAspectRatio="none"><polygon points="0,0 10,20 20,0" fill="%23ff69b4"/><polygon points="10,0 20,20 30,0" fill="%23dda0dd"/><polygon points="20,0 30,20 40,0" fill="%23ffc0cb"/><polygon points="30,0 40,20 50,0" fill="%23ff69b4"/><polygon points="40,0 50,20 60,0" fill="%23dda0dd"/><polygon points="50,0 60,20 70,0" fill="%23ffc0cb"/><polygon points="60,0 70,20 80,0" fill="%23ff69b4"/><polygon points="70,0 80,20 90,0" fill="%23dda0dd"/><polygon points="80,0 90,20 100,0" fill="%23ffc0cb"/></svg>'); /* Banderines SVG */
-            background-repeat: repeat-x;
-            background-size: 50px 20px; /* Tamaño de cada banderín */
-            z-index: 5;
-            opacity: 0.8;
-        }
-
-        .flower-left, .flower-right {
-            position: absolute;
-            width: 150px; /* Tamaño de la flor */
-            height: 150px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="roseGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgb(255,192,203);stop-opacity:1" /><stop offset="100%" style="stop-color:rgb(255,105,180);stop-opacity:1" /></linearGradient></defs><circle cx="50" cy="50" r="45" fill="url(#roseGradient)"/><path d="M50,5 A45,45 0 0,1 95,50 A45,45 0 0,1 50,95 A45,45 0 0,1 5,50 A45,45 0 0,1 50,5 Z M50,15 C75,15 85,35 85,50 C85,65 75,85 50,85 C25,85 15,65 15,50 C15,35 25,15 50,15 Z" fill="%23ff69b4"/><path d="M50,25 C65,25 70,35 70,50 C70,65 65,75 50,75 C35,75 30,65 30,50 C30,35 35,25 50,25 Z" fill="%23ff1493"/></svg>'); /* Flor simple SVG */
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 8; /* Detrás del contenedor pero sobre el fondo */
-            pointer-events: none; /* Para que no interfiera con clics */
-        }
-
-        .flower-left {
-            top: 50px;
-            left: 20px;
-            transform: rotate(-15deg);
-        }
-
+        .flower-left,
         .flower-right {
-            bottom: 50px;
-            right: 20px;
-            transform: rotate(15deg);
+          width: 100px;
+          height: 100px;
+          top: 10px;
+          left: 10px;
+          bottom: 10px;
+          right: 10px;
         }
-
-        /* Confeti */
-        .confetti {
-            position: fixed; /* Para que cubra toda la pantalla */
-            width: 10px;
-            height: 10px;
-            background-color: #ffc0cb; /* Rosa pastel */
-            border-radius: 50%;
-            animation: fall linear infinite;
-            opacity: 0;
-            z-index: 1; /* Detrás de todo el contenido */
+        .flower-right {
+          bottom: 10px;
         }
-
-        .confetti:nth-child(2n) { background-color: #ff69b4; } /* Rosa fuerte */
-        .confetti:nth-child(3n) { background-color: #dda0dd; border-radius: 0; transform: rotate(45deg); } /* Cuadrado morado */
-        .confetti:nth-child(4n) { background-color: #f08080; } /* Coral claro */
-        .confetti:nth-child(5n) { background-color: #ffd700; border-radius: 0; } /* Dorado */
-
-
-        @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(105vh) rotate(720deg); opacity: 0.7; }
+        .music-player audio {
+          width: 100%; /* El audio ocupa todo el ancho disponible */
         }
-
-        /* Media Queries para Responsividad */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.8em;
-            }
-            h2 {
-                font-size: 1.8em;
-            }
-            .card-container {
-                padding: 30px 15px;
-                margin: 20px 10px;
-            }
-            .friends-messages {
-                grid-template-columns: 1fr; /* Una columna en móviles */
-            }
-            .flower-left, .flower-right {
-                width: 100px;
-                height: 100px;
-                top: 10px;
-                left: 10px;
-                bottom: 10px;
-                right: 10px;
-            }
-            .flower-right {
-                bottom: 10px;
-            }
-            .music-player audio {
-                width: 100%; /* El audio ocupa todo el ancho disponible */
-            }
-            .gift-box {
-                width: 150px;
-                height: 150px;
-            }
-            .gift-lid {
-                width: 170px;
-                height: 50px;
-                top: -25px;
-                left: -10px;
-            }
-            .gift-box::before, .gift-box::after, .gift-lid::before {
-                width: 30px;
-                height: 30px;
-            }
-            .gift-text {
-                font-size: 1.5em;
-            }
+        .gift-box {
+          width: 150px;
+          height: 150px;
         }
+        .gift-lid {
+          width: 170px;
+          height: 50px;
+          top: -25px;
+          left: -10px;
+        }
+        .gift-box::before,
+        .gift-box::after,
+        .gift-lid::before {
+          width: 30px;
+          height: 30px;
+        }
+        .gift-text {
+          font-size: 1.5em;
+        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div id="gift-screen">
-        <div class="gift-box" id="giftBox">
-            <div class="gift-lid" id="giftLid"></div>
-        </div>
-        <p class="gift-text">¡Haz clic en el regalo!</p>
+      <div class="gift-box" id="giftBox">
+        <div class="gift-lid" id="giftLid"></div>
+      </div>
+      <p class="gift-text">¡Haz clic en el regalo!</p>
     </div>
 
     <div id="card-content">
-        <div class="decoration-top"></div>
+      <div class="decoration-top"></div>
 
-        <div class="flower-left"></div>
-        <div class="flower-right"></div>
+      <div class="flower-left"></div>
+      <div class="flower-right"></div>
 
-        <div class="card-container">
-            <h1>¡Feliz Cumpleaños, <span class="nombre-amiga">[Nombre de tu Amiga]</span>!</h1>
-            <p class="main-message">Mi querida [Nombre de tu Amiga], hoy celebramos tu vida y la alegría que traes a todos los que te conocemos. Esta página es un pequeño reflejo del inmenso cariño que te tenemos. ¡Que este día esté lleno de magia, risas y momentos inolvidables!</p>
+      <div class="card-container">
+        <h1>¡Feliz Cumpleaños, <span class="nombre-amiga">Vanesa</span>!</h1>
+        <p class="main-message">
+          Mi querida Vanesa, hoy celebramos tu vida y la alegría que traes a
+          todos los que te conocemos. Esta página es un pequeño reflejo del
+          inmenso cariño que te tenemos. ¡Que este día esté lleno de magia,
+          risas y momentos inolvidables!
+        </p>
 
-            <div class="music-player">
-                <p>Escucha una canción especial para ti:</p>
-                <audio id="birthdaySong" controls>
-                    <source src="song.mp3" type="audio/mpeg">
-                    Tu navegador no soporta el elemento de audio.
-                </audio>
-            </div>
-
-            <h2>Mensajes de tus Amigos</h2>
-            <div class="friends-messages" id="friendsMessages">
-                <div class="friend-card">
-                    <h3>De [Nombre del Amigo 1]</h3>
-                    <p>"¡Feliz cumpleaños! Eres una persona increíble y te deseo lo mejor en tu día. ¡Que sigas brillando siempre!"</p>
-                </div>
-                <div class="friend-card">
-                    <h3>De [Nombre del Amigo 2]</h3>
-                    <p>"Amiga, que este nuevo año de vida te traiga muchas alegrías, éxitos y momentos inolvidables. ¡Te quiero mucho!"</p>
-                </div>
-                <div class="friend-card">
-                    <h3>De [Nombre del Amigo 3]</h3>
-                    <p>"Gracias por tu amistad y por ser siempre tan especial. ¡Que tengas un cumpleaños maravilloso y lleno de sorpresas!"</p>
-                </div>
-                </div>
-
-            <p class="dedicatoria">Con todo nuestro cariño,<br>Tus Amigos</p>
+        <div class="music-player">
+          <p>Escucha una canción especial para ti:</p>
+          <audio id="birthdaySong" controls>
+            <source src="song.mp3" type="audio/mpeg" />
+            Tu navegador no soporta el elemento de audio.
+          </audio>
         </div>
+
+        <h2>Mensajes para vos!</h2>
+        <div class="friends-messages" id="friendsMessages">
+          <div class="friend-card">
+            <h3>De Emma</h3>
+            
+            <p>
+              "Mi quería mejor amiga Vanesita 💞. <br /> Te deseo un grandioso día de cumpleaños, eres una persona hermosa
+              la cual merece todo lo hermoso de este mundo, si el mundo no te da
+              su belleza, yo me encargaré de dártela, porque, aunque te cueste
+              verlo, eres una gran chica que hasta todo lo bueno existente no es
+              suficiente para demostrarte lo hermosa que eres (nose si se me
+              entendió😭)" 
+              <p>TE AMO MUCHO!!!</p>
+            </p>
+          </div>
+          <div class="friend-card">
+            <h3>De Carlos</h3>
+            <p>
+              "¡Mimi, feliz, feliz cumpleaños! Deseo de corazón que tengas un día espectacular, lleno de alegría y todo lo que te haga feliz. Gracias por ser mi amiga, valoro muchísimo nuestra amistad. ¡Te quiero con todo mi corazón y te mando muchísimos abrazos, reina!🎉"
+            </p>
+          </div>
+          <div class="friend-card">
+            <h3>De Lucas</h3>
+            <p>
+              "Gracias por tu amistad y por ser siempre tan especial. ¡Que
+              tengas un cumpleaños maravilloso y lleno de sorpresas!"
+            </p>
+          </div>
+        </div>
+
+        <p class="dedicatoria">Con todo nuestro cariño,<br />Tus Amigos</p>
+      </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const giftScreen = document.getElementById('gift-screen');
-            const giftBox = document.getElementById('giftBox');
-            const giftLid = document.getElementById('giftLid');
-            const cardContent = document.getElementById('card-content');
-            const birthdaySong = document.getElementById('birthdaySong');
-            const body = document.body;
-            const numConfetti = 150; // Cantidad de confeti
+      document.addEventListener("DOMContentLoaded", () => {
+        const giftScreen = document.getElementById("gift-screen");
+        const giftBox = document.getElementById("giftBox");
+        const giftLid = document.getElementById("giftLid");
+        const cardContent = document.getElementById("card-content");
+        const birthdaySong = document.getElementById("birthdaySong");
+        const body = document.body;
+        const numConfetti = 150; // Cantidad de confeti
 
-            let confettiLaunched = false;
+        let confettiLaunched = false;
 
-            function launchConfetti() {
-                if (confettiLaunched) return;
-                confettiLaunched = true;
+        function launchConfetti() {
+          if (confettiLaunched) return;
+          confettiLaunched = true;
 
-                for (let i = 0; i < numConfetti; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.classList.add('confetti');
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.animationDuration = Math.random() * 4 + 3 + 's';
-                    confetti.style.animationDelay = Math.random() * 3 + 's';
-                    confetti.style.width = Math.random() * 8 + 5 + 'px';
-                    confetti.style.height = confetti.style.width;
-                    confetti.style.opacity = Math.random() * 0.7 + 0.3;
-                    body.appendChild(confetti);
-                }
-            }
+          for (let i = 0; i < numConfetti; i++) {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.animationDuration = Math.random() * 4 + 3 + "s";
+            confetti.style.animationDelay = Math.random() * 3 + "s";
+            confetti.style.width = Math.random() * 8 + 5 + "px";
+            confetti.style.height = confetti.style.width;
+            confetti.style.opacity = Math.random() * 0.7 + 0.3;
+            body.appendChild(confetti);
+          }
+        }
 
-            // Evento al hacer clic en la pantalla del regalo
-            giftScreen.addEventListener('click', () => {
-                // 1. Animar la tapa del regalo
-                giftBox.classList.add('open');
+        // Evento al hacer clic en la pantalla del regalo
+        giftScreen.addEventListener("click", () => {
+          // 1. Animar la tapa del regalo
+          giftBox.classList.add("open");
 
-                // 2. Ocultar la pantalla del regalo y mostrar el contenido de la carta
-                setTimeout(() => {
-                    giftScreen.classList.add('hidden'); // Oculta la pantalla del regalo
-                    cardContent.classList.add('visible'); // Muestra el contenido de la carta
-                    
-                    // 3. Reproducir la música (intento)
-                    birthdaySong.volume = 0.4; // Volumen inicial
-                    birthdaySong.play().catch(e => console.log("No se pudo reproducir el audio automáticamente:", e));
+          // 2. Ocultar la pantalla del regalo y mostrar el contenido de la carta
+          setTimeout(() => {
+            giftScreen.classList.add("hidden"); // Oculta la pantalla del regalo
+            cardContent.classList.add("visible"); // Muestra el contenido de la carta
 
-                    // 4. Lanzar el confeti
-                    launchConfetti();
+            // 3. Reproducir la música (intento)
+            birthdaySong.volume = 0.4; // Volumen inicial
+            birthdaySong
+              .play()
+              .catch((e) =>
+                console.log(
+                  "No se pudo reproducir el audio automáticamente:",
+                  e
+                )
+              );
 
-                }, 800); // Espera un poco para que la animación de la tapa se vea
-            });
-
-            // Si la canción no se reproduce automáticamente, lanzar el confeti después de un tiempo
-            // Esto es útil si el navegador bloquea la reproducción automática y no hay interacción con el reproductor
-            setTimeout(() => {
-                if (!confettiLaunched && cardContent.classList.contains('visible')) {
-                    launchConfetti();
-                }
-            }, 5000); // 5 segundos después de que la carta se hace visible, si el confeti no ha iniciado
+            // 4. Lanzar el confeti
+            launchConfetti();
+          }, 800); // Espera un poco para que la animación de la tapa se vea
         });
-    </script>
 
-</body>
+        // Si la canción no se reproduce automáticamente, lanzar el confeti después de un tiempo
+        // Esto es útil si el navegador bloquea la reproducción automática y no hay interacción con el reproductor
+        setTimeout(() => {
+          if (!confettiLaunched && cardContent.classList.contains("visible")) {
+            launchConfetti();
+          }
+        }, 5000); // 5 segundos después de que la carta se hace visible, si el confeti no ha iniciado
+      });
+    </script>
+  </body>
 </html>
